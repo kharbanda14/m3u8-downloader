@@ -13,6 +13,7 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
@@ -355,6 +356,10 @@ func downloadSegments(segments []string, config *Config) ([]string, error) {
 	fmt.Printf("Starting download of %d segments with %d concurrent threads\n",
 		len(segments), config.Threads)
 
+	var progress atomic.Uint32
+	total := uint32(len(segments))
+	progress.Store(0)
+
 	// First download attempt for all segments
 	for i, segmentURL := range segments {
 		wg.Add(1)
@@ -377,7 +382,13 @@ func downloadSegments(segments []string, config *Config) ([]string, error) {
 			mu.Lock()
 			if err == nil {
 				segmentFiles[i] = fileName
-				fmt.Printf("Downloaded segment %d/%d\r", i+1, len(segments))
+				progress.Add(1)
+
+				fmt.Printf("\rProgress: %.2f%%", (float64(progress.Load())/float64(total))*100)
+
+				if progress.Load() == total {
+					fmt.Println("\nAll segments downloaded successfully!")
+				}
 			} else {
 				failedSegments = append(failedSegments, i)
 				fmt.Printf("\nInitial download failed for segment %d: %v (will retry)\n", i, err)
