@@ -12,9 +12,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/kharbanda14/m3u8-downloader/internal/config"
-	"github.com/kharbanda14/m3u8-downloader/internal/validator"
-	"github.com/kharbanda14/m3u8-downloader/pkg/utils"
+	"m3u8-downloader/internal/config"
+	"m3u8-downloader/internal/validator"
+	"m3u8-downloader/pkg/utils"
 )
 
 const (

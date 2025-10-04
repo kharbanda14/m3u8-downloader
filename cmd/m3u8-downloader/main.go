@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/kharbanda14/m3u8-downloader/internal/config"
-	"github.com/kharbanda14/m3u8-downloader/internal/downloader"
+	"m3u8-downloader/internal/config"
+	"m3u8-downloader/internal/downloader"
 )
 
 func main() {

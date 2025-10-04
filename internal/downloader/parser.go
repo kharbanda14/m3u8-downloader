@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/kharbanda14/m3u8-downloader/pkg/utils"
+	"m3u8-downloader/pkg/utils"
 )
 
 // ParseBandwidth extracts bandwidth value from stream info
